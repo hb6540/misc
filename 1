@@ -1,0 +1,33 @@
+import requests
+
+url = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3080-10gb-gddr6x-pci-express-4-0-graphics-card-titanium-and-black/6429440.p?skuId=6429440'
+
+
+headers = {
+    'Host': 'www.bestbuy.com',
+    'Sec-Ch-Ua': '"(Not(A:Brand";v="8", "Chromium";v="98"',
+    'Sec-Ch-Ua-Mobile': '?0',
+    'Sec-Ch-Ua-Platform': '"Windows"',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Sec-Fetch-Site': 'none',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-User': '?1',
+    'Sec-Fetch-Dest': 'document',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept-Language': 'en-US,en;q=0.9'
+}
+
+
+resp = requests.get(url, headers=headers, stream=True)
+
+with open("12345", "wb") as file_writer:
+    counter = 0
+    for chunk in resp.iter_content(1024):
+        if counter==10:
+            break
+        file_writer.write(chunk)
+        counter+=1
+    resp.close()
+  
